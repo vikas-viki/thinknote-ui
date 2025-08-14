@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
 import { useNotesStore, Note } from '../stores/notesStore';
 import Modal from './Modal';
 import ReactPaginate from 'react-paginate';
@@ -55,9 +55,13 @@ const Dashboard: React.FC = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {getCurrentPageNotes().map((note, i) => (
+            {getCurrentPageNotes().length > 0 ? getCurrentPageNotes().map((note, i) => (
               <NoteCard key={i} note={note} i={i} setEditingNote={setEditingNote} setShowModal={setShowModal} />
-            ))}
+            )) : (
+              <div className=''>
+                <Loader2 className='animate-spin' />
+              </div>
+            )}
           </div>
         )}
       </main>

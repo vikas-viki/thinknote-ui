@@ -90,7 +90,7 @@ export const useNotesStore = create<NotesState>((set, get) => ({
       const response = await api.post("/notes", { note, title });
       toast.success(response.data.message);
       const newNote: Note = {
-        id: response.data.id,
+        id: response.data.noteId,
         title,
         note,
         updatedAt: new Date(),

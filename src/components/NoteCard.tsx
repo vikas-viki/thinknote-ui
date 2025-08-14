@@ -41,7 +41,7 @@ const NoteCard = ({ note, setShowModal, setEditingNote, i }: NoteCardI) => {
     return (
         <>
             <div
-                className={`${getColor(i)} p-4 rounded-3xl cursor-pointer border-gray-500 border-[0.5px] group hover:shadow-lg transition-all duration-200 relative`}
+                className={`${getColor(i)} p-4 rounded-3xl cursor-pointer flex flex-col border-gray-500 border-[0.5px] group hover:shadow-lg transition-all duration-200 relative`}
                 onClick={() => handleViewNote(getColor(i))}
             >
                 <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex gap-2">
@@ -71,7 +71,7 @@ const NoteCard = ({ note, setShowModal, setEditingNote, i }: NoteCardI) => {
                 <p className="text-gray-700 text-justify text-sm mb-4 line-clamp-4">
                     {note.note}
                 </p>
-                <p className="text-gray-500 text-xs">
+                <p className="text-gray-500 text-xs mt-auto">
                     {new Date(note.updatedAt).toLocaleDateString()}
                 </p>
             </div>

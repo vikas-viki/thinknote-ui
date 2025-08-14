@@ -15,7 +15,7 @@ interface AuthState {
   getSsession: () => Promise<boolean>;
 }
 
-export const useAuthStore = create<AuthState>((set, get) => ({
+export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   notes: [],
   isAuthenticated: false,
@@ -86,7 +86,6 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   },
 
   logout: async () => {
-    if (!get().isAuthenticated) return;
     try {
       await api.get("/auth/logout");
       toast.success("Logout successful");
