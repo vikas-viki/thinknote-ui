@@ -42,6 +42,7 @@ jobs:
             ECR_REGISTRY: ${{secrets.ECR_REGISTRY}}
             ECR_REPOSITORY: ${{secrets.ECR_REPOSITORY}}
             IMAGE_TAG: latest
+            GPG_SECRET: ${{secrets.GPG_SECRET}}
 
         steps: 
             - name: Checkout repo
@@ -68,12 +69,8 @@ jobs:
                   IMAGE_NAME=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
                   ls -a
                   aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin $ECR_REGISTRY
-                  echo "docker login successful"
                   docker pull $IMAGE_NAME
-                  echo "pulled image"
                   docker stop ui || true
                   docker rm ui || true
-                  echo "done rm"
-                  cd ~/ui && gpg --batch --passphrase "$GPG_SECRET" --output '.env' --decrypt '.env.gpg'
-                  echo "env created"
+                  cd ~/ui && gpg --batch --passphrase $GPG_SECRET --output '.env' --decrypt '.env.gpg'
                   docker run -d --name ui --env-file '.env' -p 5173:5173 $IMAGE_NAME
