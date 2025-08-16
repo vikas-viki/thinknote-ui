@@ -9,6 +9,7 @@ RUN pnpm install
 
 COPY . .
 
+ENV VITE_SERVER_URL=https://thinknote.0xbuilder.in/api
 RUN pnpm build
 
 FROM node:18-alpine
